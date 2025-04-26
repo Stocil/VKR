@@ -1,0 +1,1 @@
+export { PasswordModalForm } from './form';
