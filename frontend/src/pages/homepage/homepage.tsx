@@ -1,22 +1,51 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
-import { Typography } from '@mui/material';
+import LegendToggleIcon from '@mui/icons-material/LegendToggle';
+import ScienceIcon from '@mui/icons-material/Science';
 
-import { Button } from 'components/button';
-import { Link } from 'components/link';
+import { Tabs } from 'components/tabs';
+import { TabProps } from 'components/tabs/tabs';
+import { HandleChangeTab } from 'components/tabs/types';
 
-import { routesPaths } from 'routes/routes';
+import { HomepageTabNames } from './constants';
+import { HomepageTabContentWrapper, HomepageWrapper } from './homepage-styles';
+import { HomepageMonitoring } from './monitoring';
+import { HomepageResearch } from './research';
 
-import { HomepageWrapper } from './homepage-styles';
+const options: TabProps['options'] = [
+  {
+    label: 'Мониторинг',
+    value: HomepageTabNames.Monitoring,
+    icon: <LegendToggleIcon />,
+    iconPosition: 'start',
+  },
+  {
+    label: 'Исследование',
+    value: HomepageTabNames.Research,
+    icon: <ScienceIcon />,
+    iconPosition: 'start',
+  },
+];
+
+const tabContent = {
+  [HomepageTabNames.Monitoring]: <HomepageMonitoring />,
+  [HomepageTabNames.Research]: <HomepageResearch />,
+};
 
 export const HomePage: FC = () => {
+  const [currentTab, setCurrentTab] = useState<HomepageTabNames>(
+    HomepageTabNames.Monitoring,
+  );
+
+  const handleSetTab: HandleChangeTab<HomepageTabNames> = (_, tab) => {
+    setCurrentTab(tab);
+  };
+
   return (
     <HomepageWrapper>
-      <Typography variant='h5'>Home Page</Typography>
+      <Tabs options={options} value={currentTab} onChange={handleSetTab} />
 
-      <Link linkTo={routesPaths.profile}>
-        <Button text='Профиль' />
-      </Link>
+      {tabContent[currentTab]}
     </HomepageWrapper>
   );
 };
