@@ -1,14 +1,14 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import LegendToggleIcon from '@mui/icons-material/LegendToggle';
 import ScienceIcon from '@mui/icons-material/Science';
 
 import { Tabs } from 'components/tabs';
 import { TabProps } from 'components/tabs/tabs';
-import { HandleChangeTab } from 'components/tabs/types';
 
 import { HomepageTabNames } from './constants';
-import { HomepageTabContentWrapper, HomepageWrapper } from './homepage-styles';
+import { HomepageWrapper } from './homepage-styles';
+import { useHomepageManageTabs } from './hooks';
 import { HomepageMonitoring } from './monitoring';
 import { HomepageResearch } from './research';
 
@@ -33,13 +33,7 @@ const tabContent = {
 };
 
 export const HomePage: FC = () => {
-  const [currentTab, setCurrentTab] = useState<HomepageTabNames>(
-    HomepageTabNames.Monitoring,
-  );
-
-  const handleSetTab: HandleChangeTab<HomepageTabNames> = (_, tab) => {
-    setCurrentTab(tab);
-  };
+  const { currentTab, handleSetTab } = useHomepageManageTabs();
 
   return (
     <HomepageWrapper>

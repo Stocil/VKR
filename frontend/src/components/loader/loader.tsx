@@ -9,7 +9,13 @@ type Props = PropsWithChildren<{
 
 export const Loader: FC<Props> = ({ isLoading, size = 80, children }) => {
   if (isLoading) {
-    return <CircularProgress size={size} color='primary' />;
+    return (
+      <CircularProgress
+        size={size}
+        color='primary'
+        sx={{ alignSelf: 'center' }}
+      />
+    );
   }
 
   return children;

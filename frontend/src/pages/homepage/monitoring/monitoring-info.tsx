@@ -1,55 +1,83 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { homepageDefaultValues } from '../constants';
 import { HomepageForm } from '../types';
 import { HomepageMonitoringInfoField } from './monitoring-info-field';
 import {
+  HomepageMonitoringContainer,
   HomepageMonitoringContainersWrapper,
-  HomepageMonitoringLeftContainer,
-  HomepageMonitoringRightContainer,
 } from './monitoring-styles';
+import { SensorsData } from './types';
 
-export const HomepageMonitoringInfo: FC = () => {
-  const methods = useForm<HomepageForm>({
-    defaultValues: homepageDefaultValues,
-  });
+type Props = {
+  sensorsData: SensorsData;
+  xAxisData: number[];
+};
+
+export const HomepageMonitoringInfo: FC<Props> = ({
+  sensorsData,
+  xAxisData,
+}) => {
+  const methods = useForm<HomepageForm>();
+  const { setValue } = methods;
+
+  const { current, temperature, resistance, voltage } = sensorsData;
+  const lastCurrentData = current[current.length - 1];
+  const lastResistanceData = resistance[resistance.length - 1];
+  const lastTemperatureData = temperature[temperature.length - 1];
+  const lastVoltageData = voltage[voltage.length - 1];
+
+  useEffect(() => {
+    setValue('current', lastCurrentData);
+    setValue('resistance', lastResistanceData);
+    setValue('temperature', lastTemperatureData);
+    setValue('voltage', lastVoltageData);
+  }, [
+    lastCurrentData,
+    lastResistanceData,
+    lastTemperatureData,
+    lastVoltageData,
+  ]);
 
   return (
     <HomepageMonitoringContainersWrapper>
       <FormProvider {...methods}>
-        <HomepageMonitoringLeftContainer>
+        <HomepageMonitoringContainer>
           <HomepageMonitoringInfoField
             inputTitle='Ток'
             inputName='current'
-            seriesData={[0, 1, 2, 5.5, 2, 8.5, 1.5, 1, 7, 10, 2]}
+            xAxisData={xAxisData}
+            seriesData={current}
             graphColor='#495afb'
+          />
+
+          <HomepageMonitoringInfoField
+            inputTitle='Сопротивление'
+            inputName='resistance'
+            xAxisData={xAxisData}
+            seriesData={resistance}
+            graphColor='#00ff26'
+          />
+        </HomepageMonitoringContainer>
+
+        <HomepageMonitoringContainer>
+          <HomepageMonitoringInfoField
+            inputTitle='Температура'
+            inputName='temperature'
+            xAxisData={xAxisData}
+            seriesData={temperature}
+            graphColor='#9800ff'
           />
 
           <HomepageMonitoringInfoField
             inputTitle='Напряжение'
             inputName='voltage'
-            seriesData={[0, 2, 1, 2.5, 7, 2.5, 5.2, 4, 2, 6, 6]}
+            seriesData={voltage}
+            xAxisData={xAxisData}
             graphColor='#bb4d05'
           />
-        </HomepageMonitoringLeftContainer>
-
-        <HomepageMonitoringRightContainer>
-          <HomepageMonitoringInfoField
-            inputTitle='Сопротивление'
-            inputName='resistance'
-            seriesData={[0, 11, 4, 2.5, 7, 2.1, 5.5, 6, 3, 3, 8]}
-            graphColor='#00ff26'
-          />
-
-          <HomepageMonitoringInfoField
-            inputTitle='Температура'
-            inputName='temperature'
-            seriesData={[1, 4, 8, 11, 1, 3.5, 1.2, 1.3, 3, 10, 6]}
-            graphColor='#9800ff'
-          />
-        </HomepageMonitoringRightContainer>
+        </HomepageMonitoringContainer>
       </FormProvider>
     </HomepageMonitoringContainersWrapper>
   );

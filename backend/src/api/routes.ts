@@ -2,6 +2,8 @@ import express from 'express';
 import { allowedCheck } from 'middleware/allowed-check';
 import { authenticateToken } from 'middleware/authenticate-token';
 
+import { checkServerConnection } from './connection/check-connection';
+import { getSensorsData } from './sensors/get-data';
 import { access } from './token/access';
 import { deleteToken } from './token/delete';
 import { refresh } from './token/refresh';
@@ -13,6 +15,12 @@ import { signIn } from './user/sign-in';
 import { signUp } from './user/sign-up';
 
 export const apiRouter = express.Router();
+
+// Проверка соединения с сервером
+apiRouter.route('/ping').get(checkServerConnection);
+
+// Получение данных с датчиков
+apiRouter.route('/sensors').get(getSensorsData);
 
 // Роуты для users
 apiRouter.route('/sign-up').put(signUp);

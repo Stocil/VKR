@@ -1,6 +1,6 @@
 export type HomepageForm = {
-  current: string;
-  voltage: string;
-  temperature: string;
-  resistance: string;
+  current: number;
+  voltage: number;
+  temperature: number;
+  resistance: number;
 };

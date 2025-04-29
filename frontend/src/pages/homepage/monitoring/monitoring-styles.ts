@@ -1,26 +1,16 @@
 import { Paper, styled } from '@mui/material';
 
-import {
-  HomepageContainersWrapper,
-  HomepageLeftContainer,
-} from '../homepage-styles';
+import { HorizontalStack, VerticalStack } from 'components/stack';
 
-export const HomepageMonitoringContainersWrapper = styled(
-  HomepageContainersWrapper,
-)`
-  gap: 16px;
-  justify-content: start;
+export const HomepageMonitoringContainersWrapper = styled(VerticalStack)`
+  width: 100%;
+  gap: 30px;
 `;
 
-export const HomepageMonitoringLeftContainer = styled(HomepageLeftContainer)`
-  width: 50%;
-  padding: 0;
-  gap: 50px;
+export const HomepageMonitoringContainer = styled(HorizontalStack)`
+  width: 100%;
+  gap: 30px;
 `;
-
-export const HomepageMonitoringRightContainer = styled(
-  HomepageMonitoringLeftContainer,
-)``;
 
 export const HomepageMonitoringInfoFieldWrapper = styled(Paper)`
   width: 100%;
