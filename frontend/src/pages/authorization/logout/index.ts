@@ -1,1 +1,0 @@
-export { LogoutInfo } from './logout';

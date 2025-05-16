@@ -1,7 +1,7 @@
 export namespace Sensors {
   export type Entity = {
     current: number;
-    voltage: number;
+    power: number;
     temperature: number;
     resistance: number;
   };

@@ -37,7 +37,7 @@ export const useFetchHomepageMonitoringData = () => {
           const current = [...sensorsData.current, res.current];
           const resistance = [...sensorsData.resistance, res.resistance];
           const temperature = [...sensorsData.temperature, res.temperature];
-          const voltage = [...sensorsData.voltage, res.voltage];
+          const voltage = [...sensorsData.voltage, res.power];
 
           if (newXAxisData.length > 30) {
             const slicedNewXAxisData = newXAxisData.slice(1);
