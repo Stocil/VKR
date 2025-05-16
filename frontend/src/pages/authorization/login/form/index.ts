@@ -1,1 +1,0 @@
-export { AuthorizationForm } from './form';

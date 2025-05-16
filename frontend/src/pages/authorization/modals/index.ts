@@ -1,1 +1,0 @@
-export { AuthorizationModals } from './modals';

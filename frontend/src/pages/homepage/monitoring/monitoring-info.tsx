@@ -32,7 +32,7 @@ export const HomepageMonitoringInfo: FC<Props> = ({
     setValue('current', lastCurrentData);
     setValue('resistance', lastResistanceData);
     setValue('temperature', lastTemperatureData);
-    setValue('voltage', lastVoltageData);
+    setValue('power', lastVoltageData);
   }, [
     lastCurrentData,
     lastResistanceData,
@@ -72,7 +72,7 @@ export const HomepageMonitoringInfo: FC<Props> = ({
 
           <HomepageMonitoringInfoField
             inputTitle='Напряжение'
-            inputName='voltage'
+            inputName='power'
             seriesData={voltage}
             xAxisData={xAxisData}
             graphColor='#bb4d05'

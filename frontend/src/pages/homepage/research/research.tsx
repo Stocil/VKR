@@ -30,12 +30,12 @@ export const HomepageResearch: FC = () => {
 
   useEffect(() => {
     if (!data) return;
-    const { current, resistance, temperature, voltage } = data;
+    const { current, resistance, temperature, power } = data;
 
     setValue('current', current);
     setValue('resistance', resistance);
     setValue('temperature', temperature);
-    setValue('voltage', voltage);
+    setValue('power', power);
   }, [data]);
 
   return (

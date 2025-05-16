@@ -10,7 +10,7 @@ export const sensorsApi = baseApi
         Sensors.Methods.FetchSensorsData.Response,
         Sensors.Methods.FetchSensorsData.Request
       >({
-        query: () => `sensors`,
+        query: () => `/get-info`,
         providesTags: ['fetchSensors'],
       }),
     }),
