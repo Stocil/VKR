@@ -30,12 +30,12 @@ export const HomepageResearch: FC = () => {
 
   useEffect(() => {
     if (!data) return;
-    const { current, resistance, temperature, power } = data;
+    const { current, voltage, power, temperature } = data;
 
     setValue('current', current);
-    setValue('resistance', resistance);
-    setValue('temperature', temperature);
+    setValue('voltage', voltage);
     setValue('power', power);
+    setValue('temperature', temperature);
   }, [data]);
 
   return (
@@ -54,7 +54,7 @@ export const HomepageResearch: FC = () => {
             <HomepageLeftContainer>
               <HomepageFormInput label='Ток' name='current' />
               <HomepageLeftInputDivider />
-              <HomepageFormInput label='Температура' name='temperature' />
+              <HomepageFormInput label='Мощность' name='power' />
             </HomepageLeftContainer>
 
             {
@@ -63,10 +63,10 @@ export const HomepageResearch: FC = () => {
             <BatteryChargingFullIcon sx={{ width: '200px', height: '200px' }} />
 
             <HomepageRightContainer>
-              <HomepageFormInput label='Сопротивление' name='resistance' />
+              <HomepageFormInput label='Напряжение' name='voltage' />
 
               <HomepageRightInputDivider />
-              <HomepageFormInput label='Напряжение' name='voltage' />
+              <HomepageFormInput label='Температура' name='temperature' />
             </HomepageRightContainer>
           </FormProvider>
         </HomepageContainersWrapper>

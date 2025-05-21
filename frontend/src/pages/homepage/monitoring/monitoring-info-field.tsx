@@ -11,6 +11,7 @@ type Props = {
   graphColor: string;
   seriesData: number[];
   xAxisData: number[];
+  isAreaFill?: boolean;
 };
 
 export const HomepageMonitoringInfoField: FC<Props> = ({
@@ -19,6 +20,7 @@ export const HomepageMonitoringInfoField: FC<Props> = ({
   seriesData,
   xAxisData,
   graphColor,
+  isAreaFill = true,
 }) => {
   return (
     <HomepageMonitoringInfoFieldWrapper elevation={3}>
@@ -35,7 +37,7 @@ export const HomepageMonitoringInfoField: FC<Props> = ({
           {
             data: seriesData,
             label: inputTitle,
-            area: true,
+            area: isAreaFill,
             color: graphColor,
           },
         ]}

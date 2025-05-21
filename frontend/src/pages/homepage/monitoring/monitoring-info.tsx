@@ -22,23 +22,18 @@ export const HomepageMonitoringInfo: FC<Props> = ({
   const methods = useForm<HomepageForm>();
   const { setValue } = methods;
 
-  const { current, temperature, resistance, voltage } = sensorsData;
+  const { current, voltage, power, temperature } = sensorsData;
   const lastCurrentData = current[current.length - 1];
-  const lastResistanceData = resistance[resistance.length - 1];
-  const lastTemperatureData = temperature[temperature.length - 1];
   const lastVoltageData = voltage[voltage.length - 1];
+  const lastPowerData = power[power.length - 1];
+  const lastTemperatureData = temperature[temperature.length - 1];
 
   useEffect(() => {
     setValue('current', lastCurrentData);
-    setValue('resistance', lastResistanceData);
+    setValue('voltage', lastVoltageData);
+    setValue('power', lastPowerData);
     setValue('temperature', lastTemperatureData);
-    setValue('power', lastVoltageData);
-  }, [
-    lastCurrentData,
-    lastResistanceData,
-    lastTemperatureData,
-    lastVoltageData,
-  ]);
+  }, [lastCurrentData, lastVoltageData, lastPowerData, lastTemperatureData]);
 
   return (
     <HomepageMonitoringContainersWrapper>
@@ -47,35 +42,36 @@ export const HomepageMonitoringInfo: FC<Props> = ({
           <HomepageMonitoringInfoField
             inputTitle='Ток'
             inputName='current'
-            xAxisData={xAxisData}
             seriesData={current}
+            xAxisData={xAxisData}
             graphColor='#495afb'
+            isAreaFill={false}
           />
 
           <HomepageMonitoringInfoField
-            inputTitle='Сопротивление'
-            inputName='resistance'
+            inputTitle='Напряжение'
+            inputName='voltage'
+            seriesData={voltage}
             xAxisData={xAxisData}
-            seriesData={resistance}
-            graphColor='#00ff26'
+            graphColor='#bb4d05'
           />
         </HomepageMonitoringContainer>
 
         <HomepageMonitoringContainer>
+          <HomepageMonitoringInfoField
+            inputTitle='Мощность'
+            inputName='power'
+            seriesData={power}
+            xAxisData={xAxisData}
+            graphColor='#00ff26'
+          />
+
           <HomepageMonitoringInfoField
             inputTitle='Температура'
             inputName='temperature'
             xAxisData={xAxisData}
             seriesData={temperature}
             graphColor='#9800ff'
-          />
-
-          <HomepageMonitoringInfoField
-            inputTitle='Напряжение'
-            inputName='power'
-            seriesData={voltage}
-            xAxisData={xAxisData}
-            graphColor='#bb4d05'
           />
         </HomepageMonitoringContainer>
       </FormProvider>

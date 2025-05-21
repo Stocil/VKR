@@ -8,9 +8,9 @@ export const useFetchHomepageMonitoringData = () => {
   const [xAxisData, setXAxisData] = useState<number[]>([1]);
   const [sensorsData, setSensorsData] = useState<SensorsData>({
     current: [],
-    resistance: [],
-    temperature: [],
     voltage: [],
+    power: [],
+    temperature: [],
   });
 
   const isEmptySearch = !Object.values(sensorsData).filter(
@@ -35,30 +35,30 @@ export const useFetchHomepageMonitoringData = () => {
           ];
 
           const current = [...sensorsData.current, res.current];
-          const resistance = [...sensorsData.resistance, res.resistance];
+          const voltage = [...sensorsData.voltage, res.voltage];
+          const power = [...sensorsData.power, res.power];
           const temperature = [...sensorsData.temperature, res.temperature];
-          const voltage = [...sensorsData.voltage, res.power];
 
           if (newXAxisData.length > 30) {
             const slicedNewXAxisData = newXAxisData.slice(1);
 
             const slicedCurrent = current.slice(1);
-            const slicedResistance = resistance.slice(1);
-            const slicedTemperature = temperature.slice(1);
             const slicedVoltage = voltage.slice(1);
+            const slicedPower = power.slice(1);
+            const slicedTemperature = temperature.slice(1);
 
             setSensorsData({
               current: slicedCurrent,
-              resistance: slicedResistance,
-              temperature: slicedTemperature,
               voltage: slicedVoltage,
+              power: slicedPower,
+              temperature: slicedTemperature,
             });
             setXAxisData(slicedNewXAxisData);
 
             return;
           }
 
-          setSensorsData({ current, resistance, temperature, voltage });
+          setSensorsData({ current, voltage, power, temperature });
           setXAxisData(newXAxisData);
         });
     }, 2000);

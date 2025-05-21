@@ -1,9 +1,9 @@
 export namespace Sensors {
   export type Entity = {
     current: number;
+    voltage: number;
     power: number;
     temperature: number;
-    resistance: number;
   };
 
   export namespace Methods {
