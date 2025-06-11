@@ -20,3 +20,8 @@ export const HomepageMonitoringInfoFieldWrapper = styled(Paper)`
   flex-direction: column;
   gap: 20px;
 `;
+
+export const HomepageMonitoringTitleWrapper = styled(HorizontalStack)`
+  width: 100%;
+  justify-content: space-between;
+`;
