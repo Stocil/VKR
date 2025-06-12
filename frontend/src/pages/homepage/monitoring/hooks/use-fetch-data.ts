@@ -26,7 +26,7 @@ export const useFetchHomepageMonitoringData = () => {
     { isLoading: isDataLoading, isError, isUninitialized },
   ] = useLazyFetchSensorsQuery();
 
-  const isLoading = false; //isDataLoading || isUninitialized;
+  const isLoading = isDataLoading || isUninitialized;
 
   useEffect(() => {
     const id = setInterval(() => {
