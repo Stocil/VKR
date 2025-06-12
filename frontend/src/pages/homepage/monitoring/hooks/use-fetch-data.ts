@@ -30,48 +30,49 @@ export const useFetchHomepageMonitoringData = () => {
 
   useEffect(() => {
     const id = setInterval(() => {
-      // fetchSensorsData()
-      //   .unwrap()
-      new Promise<Sensors.Entity>((resolve) =>
-        resolve({
-          current: Math.random() * 321,
-          voltage: Math.random() * 321,
-          power: Math.random() * 321,
-          temperature: Math.random() * 321,
-        }),
-      ).then((res) => {
-        const newXAxisData = [
-          ...xAxisData,
-          xAxisData[xAxisData.length - 1] + 1,
-        ];
+      fetchSensorsData()
+        .unwrap()
+        // new Promise<Sensors.Entity>((resolve) =>
+        //   resolve({
+        //     current: Math.random() * 321,
+        //     voltage: Math.random() * 321,
+        //     power: Math.random() * 321,
+        //     temperature: Math.random() * 321,
+        //   }),
+        // )
+        .then((res) => {
+          const newXAxisData = [
+            ...xAxisData,
+            xAxisData[xAxisData.length - 1] + 1,
+          ];
 
-        const current = [...sensorsData.current, res.current];
-        const voltage = [...sensorsData.voltage, res.voltage];
-        const power = [...sensorsData.power, res.power];
-        const temperature = [...sensorsData.temperature, res.temperature];
+          const current = [...sensorsData.current, res.current];
+          const voltage = [...sensorsData.voltage, res.voltage];
+          const power = [...sensorsData.power, res.power];
+          const temperature = [...sensorsData.temperature, res.temperature];
 
-        if (newXAxisData.length > 30) {
-          const slicedNewXAxisData = newXAxisData.slice(1);
+          if (newXAxisData.length > 30) {
+            const slicedNewXAxisData = newXAxisData.slice(1);
 
-          const slicedCurrent = current.slice(1);
-          const slicedVoltage = voltage.slice(1);
-          const slicedPower = power.slice(1);
-          const slicedTemperature = temperature.slice(1);
+            const slicedCurrent = current.slice(1);
+            const slicedVoltage = voltage.slice(1);
+            const slicedPower = power.slice(1);
+            const slicedTemperature = temperature.slice(1);
 
-          setSensorsData({
-            current: slicedCurrent,
-            voltage: slicedVoltage,
-            power: slicedPower,
-            temperature: slicedTemperature,
-          });
-          setXAxisData(slicedNewXAxisData);
+            setSensorsData({
+              current: slicedCurrent,
+              voltage: slicedVoltage,
+              power: slicedPower,
+              temperature: slicedTemperature,
+            });
+            setXAxisData(slicedNewXAxisData);
 
-          return;
-        }
+            return;
+          }
 
-        setSensorsData({ current, voltage, power, temperature });
-        setXAxisData(newXAxisData);
-      });
+          setSensorsData({ current, voltage, power, temperature });
+          setXAxisData(newXAxisData);
+        });
     }, 2000);
 
     return () => clearInterval(id);

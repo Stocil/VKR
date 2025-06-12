@@ -11,6 +11,14 @@ const char* password = "35814610";
 bool isConnected = false;
 bool sensorFound = false;
 
+// Датчик температуры 
+const int adcPin = 34; // GPIO34 (ADC1_6)
+const float R_fixed = 10000.0; // постоянный резистор (10 кОм)
+const float Vcc = 3.3;
+const float Beta = 3950.0;
+const float R0 = 33100.0; // сопротивление при 25°C по текущим данным
+const float T0_K = 298.15;
+
 // Запускаем сервер на порту 8081
 WebServer server(8081);
 
@@ -51,6 +59,8 @@ void handleGetInfo() {
     ina219Available = ina219.begin();  // Инициализируем датчик
   }
 
+  Serial.println(ina219Available);
+
   String json = "{";
 
   if (ina219Available) {
@@ -58,11 +68,9 @@ void handleGetInfo() {
     float current_mA = ina219.getCurrent_mA();
     float power_mW = ina219.getPower_mW();
 
-
     json += "\"voltage\":" + String(busVoltage, 2) + ",";
     json += "\"current\":" + String(current_mA, 1) + ",";
-    json += "\"power\":" + String(power_mW, 1);
-
+    json += "\"power\":" + String(power_mW, 1) + ",";
 
     Serial.print("Напряжение (шина): ");
     Serial.print(busVoltage);
@@ -79,9 +87,21 @@ void handleGetInfo() {
     Serial.println("-------------------------");
     delay(3000);
   } else {
-    json += "\"voltage\":0.00,";
-    json += "\"current\":0.0";
+    json += "\"voltage\":1.0,";
+    json += "\"current\":2.0,";
+    json += "\"power\":3.0,";
   }
+
+  // Измерение температуры
+
+  int adcValue = analogRead(adcPin);
+  float voltage = (adcValue / 4095.0) * Vcc;
+  float Rt = (voltage * R_fixed) / (Vcc - voltage);
+
+  float tempK = 1.0 / (1.0 / T0_K + (1.0 / Beta) * log(Rt / R0));
+  float tempC = tempK - 273.15;
+
+  json += "\"temperature\":" + String(tempC, 2);
 
   json += "}";
   server.send(200, "application/json", json);
