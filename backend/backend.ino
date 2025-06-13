@@ -59,8 +59,6 @@ void handleGetInfo() {
     ina219Available = ina219.begin();  // Инициализируем датчик
   }
 
-  Serial.println(ina219Available);
-
   String json = "{";
 
   if (ina219Available) {
@@ -84,7 +82,6 @@ void handleGetInfo() {
     Serial.print(power_mW);
     Serial.println(" мВт");
 
-    Serial.println("-------------------------");
     delay(3000);
   } else {
     json += "\"voltage\":1.0,";
@@ -100,6 +97,11 @@ void handleGetInfo() {
 
   float tempK = 1.0 / (1.0 / T0_K + (1.0 / Beta) * log(Rt / R0));
   float tempC = tempK - 273.15;
+
+  Serial.print("Температура: ");
+  Serial.print(tempC);
+  Serial.println(" С");
+  Serial.println("-------------------------");
 
   json += "\"temperature\":" + String(tempC, 2);
 

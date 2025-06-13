@@ -32,14 +32,6 @@ export const useFetchHomepageMonitoringData = () => {
     const id = setInterval(() => {
       fetchSensorsData()
         .unwrap()
-        // new Promise<Sensors.Entity>((resolve) =>
-        //   resolve({
-        //     current: Math.random() * 321,
-        //     voltage: Math.random() * 321,
-        //     power: Math.random() * 321,
-        //     temperature: Math.random() * 321,
-        //   }),
-        // )
         .then((res) => {
           const newXAxisData = [
             ...xAxisData,
