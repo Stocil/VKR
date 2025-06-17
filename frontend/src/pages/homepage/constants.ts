@@ -1,4 +1,4 @@
 export enum HomepageTabNames {
-  Research = 'research',
+  LoadMonitoring = 'loadMonitoring',
   Monitoring = 'monitoring',
 }

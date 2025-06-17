@@ -40,7 +40,7 @@ export const HomepageMonitoringInfo: FC<Props> = ({
       <FormProvider {...methods}>
         <HomepageMonitoringContainer>
           <HomepageMonitoringInfoField
-            inputTitle='Ток'
+            inputTitle='Ток, мА'
             inputName='current'
             seriesData={current}
             xAxisData={xAxisData}
@@ -49,21 +49,23 @@ export const HomepageMonitoringInfo: FC<Props> = ({
           />
 
           <HomepageMonitoringInfoField
-            inputTitle='Напряжение'
+            inputTitle='Напряжение, В'
             inputName='voltage'
             seriesData={voltage}
             xAxisData={xAxisData}
             graphColor='#bb4d05'
+            isAreaFill={false}
           />
         </HomepageMonitoringContainer>
 
         <HomepageMonitoringContainer>
           <HomepageMonitoringInfoField
-            inputTitle='Мощность'
+            inputTitle='Мощность, мВт'
             inputName='power'
             seriesData={power}
             xAxisData={xAxisData}
             graphColor='#00ff26'
+            isAreaFill={false}
           />
 
           <HomepageMonitoringInfoField
@@ -72,6 +74,7 @@ export const HomepageMonitoringInfo: FC<Props> = ({
             xAxisData={xAxisData}
             seriesData={temperature}
             graphColor='#9800ff'
+            isAreaFill={false}
           />
         </HomepageMonitoringContainer>
       </FormProvider>

@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { Sensors } from 'types/entities/sensors';
-
 import * as XLSX from 'xlsx';
 
 import { useLazyFetchSensorsQuery } from 'store/api/sensors';
 
 import { SensorsData } from '../types';
 
-export const useFetchHomepageMonitoringData = () => {
+export const useFetchHomepageMonitoringData = (isLoadMode: boolean) => {
   const [xAxisData, setXAxisData] = useState<number[]>([1]);
   const [sensorsData, setSensorsData] = useState<SensorsData>({
     current: [],
@@ -28,6 +26,12 @@ export const useFetchHomepageMonitoringData = () => {
 
   const isLoading = isDataLoading || isUninitialized;
 
+  const getCurrent = (current: number) =>
+    isLoadMode ? current * -4.2 : current * -1;
+
+  const getVoltage = (voltage: number) =>
+    isLoadMode ? voltage * 0.9 : voltage;
+
   useEffect(() => {
     const id = setInterval(() => {
       fetchSensorsData()
@@ -38,8 +42,8 @@ export const useFetchHomepageMonitoringData = () => {
             xAxisData[xAxisData.length - 1] + 1,
           ];
 
-          const current = [...sensorsData.current, res.current];
-          const voltage = [...sensorsData.voltage, res.voltage];
+          const current = [...sensorsData.current, getCurrent(res.current)];
+          const voltage = [...sensorsData.voltage, getVoltage(res.voltage)];
           const power = [...sensorsData.power, res.power];
           const temperature = [...sensorsData.temperature, res.temperature];
 

@@ -12,7 +12,11 @@ import { useFetchHomepageMonitoringData } from './hooks';
 import { HomepageMonitoringInfo } from './monitoring-info';
 import { HomepageMonitoringTitleWrapper } from './monitoring-styles';
 
-export const HomepageMonitoring: FC = () => {
+type Props = {
+  isLoadMode: boolean;
+};
+
+export const HomepageMonitoring: FC<Props> = ({ isLoadMode }) => {
   const {
     sensorsData,
     xAxisData,
@@ -20,7 +24,7 @@ export const HomepageMonitoring: FC = () => {
     isLoading,
     isError,
     isEmptySearch,
-  } = useFetchHomepageMonitoringData();
+  } = useFetchHomepageMonitoringData(isLoadMode);
 
   return (
     <HomepageTabContentWrapper>
